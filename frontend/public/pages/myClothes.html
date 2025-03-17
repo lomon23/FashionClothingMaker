@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Clothes</title>
+    <link rel="stylesheet" href="../styles/components/header.css">
+    <script defer src="../scripts/api/api.js"></script>
+    <style>
+        .clothes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .clothes-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .clothes-item img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>My Clothes</h1>
+        <div id="clothesContainer" class="clothes-grid"></div>
+    </main>
+    <script src="../scripts/components.js"></script>
+    <script>
+        // Викликаємо функцію для завантаження хедера після завантаження сторінки
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeader();
+    
+        });
+    </script>
+    <script>
+        async function displayClothes() {
+            const container = document.getElementById('clothesContainer');
+            const clothes = await ClothingAPI.getClothes();
+            clothes.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'clothes-item';
+                div.innerHTML = `
+                    <a href="clothesDetails.html?id=${item.id}">
+                        <img src="${item.clothesImage}" alt="${item.name}">
+                        <h3>${item.name}</h3>
+                    </a>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', displayClothes);
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Створення одягу</title>
+    <link rel="stylesheet" href="../styles/components/header.css">
+    <link rel="stylesheet" href="../styles/clothing/clothing.css">
+    <script defer src="../scripts/api/api.js"></script>
+</head>
+<body>
+
+    <main>
+        <div class="toolbar">
+            <button id="clearCanvas">Очистити</button>
+            <button id="fixButton" style="display: none;">Зафіксувати</button>
+            <button id="saveCanvas">Зберегти</button>
+            <input type="file" id="imageUpload" accept="image/*">
+        </div>
+
+        <h2>Вибір шаблону</h2>
+
+        замість ось цього гамна
+        <div id="templateList">
+            <button class="templateButton" data-img="..\img\T-shirt\T_shirt.jpg"><img src="..\img\T-shirt\T_shirt.jpg" alt=""></button>
+            <button class="templateButton" data-img="../img/trousers/boyfriend-jeans-momfit-low-rise-600nw-2330405615.webp"><img src="../img/trousers/boyfriend-jeans-momfit-low-rise-600nw-2330405615.webp" alt=""></button>
+            <button class="templateButton" data-img="../img/trousers/fashion-trendy-womens-jeans-isolated-600nw-2466665519.webp"><img src="../img/trousers/fashion-trendy-womens-jeans-isolated-600nw-2466665519.webp" alt=""></button>
+            <button class="templateButton" data-img="../img/trousers/girls-knickers-technical-sketch-illustration-green-color-children-s-underpants-casual-panties-isolated-template_97843-9862.avif"><img src="../img/trousers/girls-knickers-technical-sketch-illustration-green-color-children-s-underpants-casual-panties-isolated-template_97843-9862.avif" alt=""></button>
+            <button class="templateButton" data-img="../img/zipjacket/6245977027_w300_h300_hudi-zipka-zhinoche-dvonitka.webp"><img src="../img/zipjacket/6245977027_w300_h300_hudi-zipka-zhinoche-dvonitka.webp" alt=""></button>
+        </div>
+
+        <canvas id="designCanvas" width="800" height="600"></canvas>
+    </main>
+
+    <script src="../scripts/clothing/canvas.js"></script>
+    <script src="../scripts/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeader();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            window.canvasHandling.initCanvasHandling();
+        });
+    </script>
+    <script>
+        
+    </script>
+</body>
+</html>

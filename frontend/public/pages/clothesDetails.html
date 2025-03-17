@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Details</title>
+    <link rel="stylesheet" href="../styles/components/header.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        main {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main id="clothingDetails" class="clothes-details">
+        <!-- Content will be loaded here -->
+    </main>
+    <script src="../scripts/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeader();
+        });
+    </script>
+    <script>
+        async function fetchClothingDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            if (id) {
+                try {
+                    const clothing = await ClothingAPI.getClothesById(id);
+                    if (clothing) {
+                        document.getElementById('clothingDetails').innerHTML = `
+                            <h1>${clothing.name}</h1>
+                            <img src="${clothing.clothesImage}" alt="${clothing.name}">
+                        `;
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('clothingDetails').innerHTML = 'Error loading details';
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchClothingDetails);
+    </script>
+</body>
+</html>

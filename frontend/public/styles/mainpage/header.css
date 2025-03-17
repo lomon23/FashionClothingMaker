@@ -1,0 +1,39 @@
+header {
+    background-color: #f8f8f8; /* Світлий фон */
+    color: #333; /* Темний текст */
+    padding: 10px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Легка тінь */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 2em;
+    margin: 0;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #555; /* Сірий колір тексту */
+    font-weight: bold;
+    padding: 8px 12px; /* Додаємо трохи місця навколо тексту */
+    border-radius: 5px; /* Закруглені кути */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Плавні переходи */
+}
+
+header nav ul li a:hover {
+    background-color: #ddd; /* Світло-сірий фон при наведенні */
+    color: #000; /* Чорний колір тексту при наведенні */
+}

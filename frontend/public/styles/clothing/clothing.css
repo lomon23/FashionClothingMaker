@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    overflow: hidden; /* Prevent content from overflowing */
+}
+
+.toolbar {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+}
+
+.toolbar button,
+.toolbar input[type="file"] {
+    padding: 8px 12px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #eee;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toolbar button:hover {
+    background-color: #ddd;
+}
+
+h2 {
+    color: #0056b3;
+    margin-bottom: 15px;
+}
+
+#templateList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align items to the start */
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.templateButton {
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.templateButton img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 100%; /* Make canvas responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    main {
+        width: 95%;
+    }
+
+    .toolbar {
+        flex-direction: column; /* Stack toolbar items vertically */
+        align-items: stretch; /* Make items take full width */
+    }
+
+    .toolbar button,
+    .toolbar input[type="file"] {
+        width: 100%; /* Make buttons full width */
+        margin: 5px 0;
+    }
+
+    #templateList {
+        justify-content: center; /* Center items on smaller screens */
+    }
+}

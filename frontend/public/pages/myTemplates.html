@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Templates</title>
+    <link rel="stylesheet" href="../styles/components/header.css">
+    <script defer src="../scripts/api/api.js"></script>
+    <style>
+        .create_templates {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .myTemplates {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            padding: 20px;
+        }
+        .templateButton {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .templateButton img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="create_templates">
+        <h2>Створення одягу</h2>
+        <input type="file" id="imageUpload" accept="image/*">
+        <select id="clothingType">
+            <option value="t-shirt">Футболка</option>
+            <option value="pants">Штани</option>
+            <option value="zip-up">Зіпка</option>
+        </select>
+        <button id="saveClothing" onclick="saveTemplate()">Зберегти</button>
+    </div>
+
+    <div id="myTemplates" class="myTemplates">
+        <!-- Templates will be loaded here dynamically -->
+    </div>
+
+    <script src="../scripts/components.js"></script>
+    <script>
+        async function saveTemplate() {
+            const fileInput = document.getElementById('imageUpload');
+            const typeSelect = document.getElementById('clothingType');
+            
+            if (!fileInput.files[0]) {
+                alert('Виберіть зображення');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    await ClothingAPI.saveTemplate(e.target.result, typeSelect.value);
+                    alert('Шаблон збережено!');
+                    loadTemplates();
+                } catch (error) {
+                    alert('Помилка збереження');
+                }
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        async function loadTemplates() {
+            const container = document.getElementById('myTemplates');
+            const templates = await ClothingAPI.getTemplates();
+            
+            container.innerHTML = templates.map(template => `
+                <button class="templateButton" data-img="${template.templateImage}">
+                    <img src="${template.templateImage}" alt="${template.type}">
+                </button>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeader();
+            loadTemplates();
+        });
+    </script>
+</body>
+</html>
