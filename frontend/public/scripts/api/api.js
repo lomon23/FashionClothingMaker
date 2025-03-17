@@ -7,9 +7,9 @@ class ClothingAPI {
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 
-                // Set max dimensions
-                const MAX_WIDTH = 800;
-                const MAX_HEIGHT = 800;
+                // Reduce max dimensions
+                const MAX_WIDTH = 600;
+                const MAX_HEIGHT = 600;
                 
                 let width = img.width;
                 let height = img.height;
@@ -30,17 +30,23 @@ class ClothingAPI {
                 canvas.height = height;
                 
                 ctx.drawImage(img, 0, 0, width, height);
-                resolve(canvas.toDataURL('image/jpeg', 0.7));
+                // Increase compression by reducing quality
+                resolve(canvas.toDataURL('image/jpeg', 0.5));
             };
         });
     }
 
     static async saveCanvas() {
         const canvas = document.getElementById('designCanvas');
+        if (!canvas) {
+            console.error('Canvas element not found');
+            alert('Error: Canvas not found');
+            return;
+        }
+    
         const name = prompt('Enter design name:');
-        
         if (!name) return;
-
+    
         try {
             const originalImage = canvas.toDataURL('image/png');
             const compressedImage = await this.compressImage(originalImage);
@@ -55,17 +61,21 @@ class ClothingAPI {
                     name
                 })
             });
-
+    
             const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to save design');
+            }
             
             if (data.success) {
                 alert('Design saved successfully!');
-            } else {
-                throw new Error('Failed to save design');
+                return data.id;
             }
         } catch (error) {
-            console.error('Error:', error);
-            alert('Error saving design: ' + error.message);
+            console.error('Save error:', error);
+            alert('Error saving design: ' + (error.message || 'Unknown error'));
+            return null;
         }
     }
 

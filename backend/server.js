@@ -8,16 +8,22 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// MongoDB connection with debug mode
 mongoose.set('debug', true);
 console.log('Connecting to MongoDB:', process.env.MONGO_URI);
-mongoose.connect(process.env.MONGO_URI)
+
+mongoose.connect(process.env.MONGO_URI, {
+    dbName: process.env.DATABASE_NAME,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
     .then(async () => {
         console.log('Connected to MongoDB');})
     .catch(err => console.error('MongoDB connection error:', err));
 
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
-app.use(express.json());
+
 
 
 app.get('/api/clothes', async (req, res) => {
@@ -56,18 +62,30 @@ app.post('/api/clothes', async (req, res) => {
 app.post('/api/clothes/save', async (req, res) => {
     try {
         const { imageData, name } = req.body;
-        const _id = Date.now();
         
+        if (!imageData || !name) {
+            return res.status(400).json({ 
+                success: false, 
+                error: 'Image data and name are required' 
+            });
+        }
+
+        const _id = Date.now();
         const clothes = new Clothes({
             _id,
             clothesImage: imageData,
             name
         });
         
-        await clothes.save();
-        res.status(201).json({ success: true, id: _id });
+        const savedClothes = await clothes.save();
+        console.log('Design saved with ID:', _id);
+        res.status(201).json({ success: true, id: _id, data: savedClothes });
     } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+        console.error('Save error:', error);
+        res.status(500).json({ 
+            success: false, 
+            error: 'Failed to save design: ' + error.message 
+        });
     }
 });
 
@@ -80,7 +98,6 @@ app.delete('/api/clothes/:id', async (req, res) => {
     }
 });
 
-// Get all templates
 app.get('/api/templates', async (req, res) => {
     try {
         const templates = await Template.find();
@@ -90,7 +107,6 @@ app.get('/api/templates', async (req, res) => {
     }
 });
 
-// Save template
 app.post('/api/templates', async (req, res) => {
     try {
         const { templateImage, type } = req.body;
