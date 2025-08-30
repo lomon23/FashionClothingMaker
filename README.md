@@ -1,4 +1,4 @@
-# FashionCanvas
+# FashionClothingMaker
 
 FashionCanvas is a simple web application that allows users to create and design clothing items directly on a canvas. This project was created as a **pair programming exercise**, focusing on collaborative development and practicing working with a secure database hosted online instead of just locally.
 
