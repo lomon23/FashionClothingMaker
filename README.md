@@ -36,6 +36,6 @@ linkedin: linkedin.com/in/ostap-krochak-135496327/
 github: https://github.com/lomon23
 
 Danylo(D1loks):
-gmail: danylochubatyuk@gmail.com
+gmail: danylochubatiuk@gmail.com
 linkedin:
 github: 
